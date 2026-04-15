@@ -10,7 +10,6 @@ using YOLOv8, ByteTrack, DeepFace, and Binary Logistic Regression.
 - Windows 10/11 (64-bit)
 - Python 3.11 (recommended) — https://www.python.org/downloads/
 - NVIDIA GPU with CUDA (optional but recommended for speed)
-- Git — https://git-scm.com/download/win
 
 ---
 
@@ -19,7 +18,7 @@ using YOLOv8, ByteTrack, DeepFace, and Binary Logistic Regression.
 ### Step 1 — Clone the project
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/srinath-manda/pedestrian_gap_analysis.git
 cd pedestrian-gap-acceptance
 ```
 
