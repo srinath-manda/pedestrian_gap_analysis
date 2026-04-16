@@ -50,7 +50,11 @@ class LogitModel:
         X = sm.add_constant(X, has_constant="add")
 
         model = sm.Logit(y, X)
-        results = model.fit(disp=False)
+        try:
+            results = model.fit(disp=False)
+        except Exception:
+            # Fall back to regularized (L1) fit when perfect separation causes singular matrix
+            results = model.fit_regularized(method="l1", alpha=0.1, disp=False)
         return results
 
     def save_summary(self, results, output_dir: str) -> str:
@@ -58,7 +62,10 @@ class LogitModel:
         os.makedirs(output_dir, exist_ok=True)
         out_path = os.path.join(output_dir, "logit_model_summary.txt")
         with open(out_path, "w", encoding="utf-8") as f:
-            f.write(str(results.summary2()))
+            try:
+                f.write(str(results.summary2()))
+            except Exception:
+                f.write(str(results.summary()))
             f.write("\n\n")
             f.write("=== Odds Ratios ===\n")
             odds_df = self.get_odds_ratios(results)
